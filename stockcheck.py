@@ -5,20 +5,19 @@ import time
 from PIL import Image
 from io import BytesIO
 from multiprocessing import Pool
-from pyvirtualdisplay import Display
 import os
 
 
 def checkStock(stock):
     stats = []
     statsGetters = [
-        # getConsistentEarningsGrowth,
-        # getReturnOnEquity,
-        # getFreeCashFlow,
-        # getDebtToEquityRatio,
-        # getRating,
+        getConsistentEarningsGrowth,
+        getReturnOnEquity,
+        getFreeCashFlow,
+        getDebtToEquityRatio,
+        getRating,
         getChart,
-        # getLiquidity,
+        getLiquidity,
 
         # getLongLastingCompetitiveAdvantage,
         # getNews,
@@ -293,9 +292,9 @@ def getChart(stock):
     png = chrome.get_screenshot_as_png()
     chrome.quit()
 
-    filename = 'chart-' + stock + '.png'
+    filename = f'chart-{stock}.png'
     im = Image.open(BytesIO(png))
-    im.save(filename)
+    im.save(f'{os.getcwd()}/static/{filename}')
 
     return [{
         'label': 'Chart > 50 Day Moving Average Line',
