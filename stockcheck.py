@@ -151,7 +151,10 @@ def getReturnOnEquity(stock):
     sectorStocks = getSectorStocks(sector)
     sectorStocks = chunk(sectorStocks, 5)
     
-    sectorROEDependents = Pool(len(sectorStocks)).map(getSectorROEDependents, sectorStocks)
+    p = Pool(len(sectorStocks))
+    sectorROEDependents = p.map(getSectorROEDependents, sectorStocks)
+    p.close()
+    
     sectorROEDependents = [elem for arr in sectorROEDependents for elem in arr] # flatten
 
     # sectorROEDependents = getSectorROEDependents(sectorStocks)
@@ -176,7 +179,7 @@ def getSectorStocks(sector):
 
     html = BeautifulSoup(r.content, 'html.parser')
     table = html.find(id='scr-res-table')
-    stocks = [stockLabel.text for stockLabel in table.find_all('a')][:25]
+    stocks = [stockLabel.text for stockLabel in table.find_all('a')][:20]
 
     return stocks
 
