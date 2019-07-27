@@ -11,13 +11,13 @@ import os
 def checkStock(stock):
     stats = []
     statsGetters = [
-        getConsistentEarningsGrowth,
-        # getReturnOnEquity,
-        getFreeCashFlow,
-        getDebtToEquityRatio,
-        getRating,
-        getChart,
-        getLiquidity,
+        # getConsistentEarningsGrowth,
+        getReturnOnEquity,
+        # getFreeCashFlow,
+        # getDebtToEquityRatio,
+        # getRating,
+        # getChart,
+        # getLiquidity,
 
         # getLongLastingCompetitiveAdvantage,
         # getNews,
@@ -149,8 +149,12 @@ def getReturnOnEquity(stock):
     sector = profile['assetProfile']['sector']
 
     sectorStocks = getSectorStocks(sector)
+    sectorStocks = chunk(sectorStocks, 5)
+    
+    sectorROEDependents = Pool(len(sectorStocks)).map(getSectorROEDependents, sectorStocks)
+    sectorROEDependents = [elem for arr in sectorROEDependents for elem in arr] # flatten
 
-    sectorROEDependents = getSectorROEDependents(sectorStocks)
+    # sectorROEDependents = getSectorROEDependents(sectorStocks)
     totalMarketCap = sum([s['marketCap'] for s in sectorROEDependents])
     sectorROE = sum([s['returnOnEquity'] * s['marketCap'] for s in sectorROEDependents]) / totalMarketCap
 
