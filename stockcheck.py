@@ -16,7 +16,7 @@ def checkStock(stock):
         getFreeCashFlow,
         getDebtToEquityRatio,
         getRating,
-        # getChart,
+        getChart,
         getLiquidity,
 
         # getLongLastingCompetitiveAdvantage,
