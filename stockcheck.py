@@ -46,7 +46,7 @@ def checkStock(stock):
             stat['check'] = f"{stat['returnOnEquity']:,} > {stat['returnOnEquityTarget']:,}"
             stat['result'] = stat['returnOnEquity'] > stat['returnOnEquityTarget']
 
-        elif stat['label'] == 'Return on Equity (ROE) > Sector (Top 25 Market Cap) Return on Equity':
+        elif stat['label'] == 'Return on Equity (ROE) > Sector (Top 20 Market Cap) Return on Equity':
             stat['check'] = f"{stat['returnOnEquity']:,} > {stat['sectorReturnOnEquity']:,}"
             stat['result'] = stat['returnOnEquity'] > stat['sectorReturnOnEquity']
 
@@ -162,7 +162,7 @@ def getReturnOnEquity(stock):
     sectorROE = sum([s['returnOnEquity'] * s['marketCap'] for s in sectorROEDependents]) / totalMarketCap
 
     stats.append({
-        'label': 'Return on Equity (ROE) > Sector (Top 25 Market Cap) Return on Equity',
+        'label': 'Return on Equity (ROE) > Sector (Top 20 Market Cap) Return on Equity',
         'returnOnEquity': round(returnOnEquity, 4),
         'sectorReturnOnEquity': round(sectorROE, 4)
     })
