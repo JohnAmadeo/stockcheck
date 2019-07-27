@@ -21,15 +21,19 @@
     </style>
 </head>
 <body>
+    <h1>{{ data.stock }}</h1>
+    
     <div>
     {% for item in data.stats %}
         <h3 class="label">{{ item.label }}</h3>
 
+        {% if item.check is not none %}
         <p>{{ item.check }}</p>
+        {% endif %}
 
-        {% if item.result %}
+        {% if item.result == True %}
         <p class="true">{{ item.result }}</p>
-        {% else %}
+        {% elif item.result == False %}
         <p class="false">{{ item.result }}</p>
         {% endif %}
 
