@@ -12,11 +12,11 @@ def checkStock(stock):
     stats = []
     statsGetters = [
         getConsistentEarningsGrowth,
-        getReturnOnEquity,
+        # getReturnOnEquity,
         getFreeCashFlow,
         getDebtToEquityRatio,
         getRating,
-        getChart,
+        # getChart,
         getLiquidity,
 
         # getLongLastingCompetitiveAdvantage,
@@ -148,12 +148,7 @@ def getReturnOnEquity(stock):
     profile = getYahooFinanceData(stock, 'profile')
     sector = profile['assetProfile']['sector']
 
-    # parallelize fetching of ROE of companies in the same sector
     sectorStocks = getSectorStocks(sector)
-    # sectorStocks = chunk(sectorStocks, 5)
-    print(sectorStocks)
-    # sectorROEDependents = Pool(len(sectorStocks)).map(getSectorROEDependents, sectorStocks)
-    # sectorROEDependents = [elem for arr in sectorROEDependents for elem in arr] # flatten
 
     sectorROEDependents = getSectorROEDependents(sectorStocks)
     totalMarketCap = sum([s['marketCap'] for s in sectorROEDependents])
