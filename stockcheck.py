@@ -348,16 +348,11 @@ def getWithRetries(url, headers):
     return {}
 
 
-DATA_CACHE = {
-    'financials': None,
-    'statistics': None,
-    'analysis': None,
-    'profile': None
-}
+DATA_CACHE = {}
 
 def getYahooFinanceData(stock, dataType):
-    if DATA_CACHE[dataType] != None:
-        return DATA_CACHE[dataType]
+    if stock in DATA_CACHE and dataType in DATA_CACHE[stock]:
+        return DATA_CACHE[stock][dataType]
 
     headers = {
         'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
@@ -366,7 +361,12 @@ def getYahooFinanceData(stock, dataType):
 
     url = 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-' + dataType + '?region=US&symbol=' + stock
     data = getWithRetries(url, headers=headers).json()
-    DATA_CACHE[dataType] = data
+    
+    if stock not in DATA_CACHE:
+        DATA_CACHE[stock] = {}
+    
+    DATA_CACHE[stock][dataType] = data
+    
     return data
 
 
