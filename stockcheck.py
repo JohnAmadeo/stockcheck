@@ -11,13 +11,13 @@ import os
 def checkStock(stock):
     stats = []
     statsGetters = [
-        # getConsistentEarningsGrowth,
+        getConsistentEarningsGrowth,
         getReturnOnEquity,
-        # getFreeCashFlow,
-        # getDebtToEquityRatio,
-        # getRating,
-        # getChart,
-        # getLiquidity,
+        getFreeCashFlow,
+        getDebtToEquityRatio,
+        getRating,
+        getChart,
+        getLiquidity,
 
         # getLongLastingCompetitiveAdvantage,
         # getNews,
