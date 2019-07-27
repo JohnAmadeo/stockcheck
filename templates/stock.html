@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Stock: {{ data.stock }}</title>
+    <style>
+        body {
+            font-family: 'Helvetica';
+        }
+
+        .label {
+            color: blue;
+        }
+
+        .true {
+            color: green;
+        }
+
+        .false {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    {% for item in data.stats %}
+        <h3 class="label">{{ item.label }}</h3>
+
+        <p>{{ item.check }}</p>
+
+        {% if item.result %}
+        <p class="true">{{ item.result }}</p>
+        {% else %}
+        <p class="false">{{ item.result }}</p>
+        {% endif %}
+
+        {% if item.image is defined %}
+        <img width="1200" src="/static/{{ item.chart }}"/>
+        {% endif %}
+        <br/>
+
+    {% endfor %}
+    </div>
+</body>
+</html>
